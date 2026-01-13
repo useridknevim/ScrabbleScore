@@ -11,36 +11,21 @@ namespace ScrabbleScore
     {
         public string Pismeno { get; set; } = "";
 
-        // Typ bonusu na tomto políčku
-        // "zadny" = běžné pole
-        // "2L" = dvojnásobné písmeno
-        // "3L" = trojnásobné písmeno
-        // "2W" = dvojnásobné slovo
-        // "3W" = trojnásobné slovo
+        // Pomocná vlastnost, abychom věděli, co hráč přidal v tomto tahu
+        public bool JeZafixovano { get; set; } = false;
+
+        // Typ bonusu: "zadny", "2L", "3L", "2W", "3W"
         public string Bonus { get; set; } = "zadny";
 
         public Color ZiskejBarvu()
         {
-            if (Bonus == "3W")
-            {
-                return Color.Red; // trojnásobné slovo
-            }
-            else if (Bonus == "2W")
-            {
-                return Color.Pink; // dvojnásobné slovo
-            }
-            else if (Bonus == "3L")
-            {
-                return Color.DarkBlue; // trojnásobné písmeno
-            }
-            else if (Bonus == "2L")
-            {
-                return Color.LightBlue; // dvojnásobné písmeno
-            }
-            else
-            {
-                return Color.Green; // normální pole
-            }
+            if (JeZafixovano) return Color.LightGray; // Písmena z minulých kol
+
+            if (Bonus == "3W") return Color.Red;
+            else if (Bonus == "2W") return Color.Pink;
+            else if (Bonus == "3L") return Color.DarkBlue;
+            else if (Bonus == "2L") return Color.LightBlue;
+            else return Color.Green;
         }
     }
 }
