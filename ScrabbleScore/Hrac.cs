@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ScrabbleScore
 {
@@ -10,16 +7,8 @@ namespace ScrabbleScore
     {
         public string Jmeno { get; set; }
         public int Skore { get; set; }
-
-        public Hrac(string jmeno)
-        {
-            Jmeno = jmeno;
-            Skore = 0;
-        }
-
-        public override string ToString()
-        {
-            return Jmeno + ": " + Skore + " bodů";
-        }
+        public List<Tah> HistorieTahu { get; set; }
+        public Hrac(string jmeno) { Jmeno = jmeno; Skore = 0; HistorieTahu = new List<Tah>(); }
+        public override string ToString() => Jmeno + ": " + Skore + " bodů";
     }
 }
