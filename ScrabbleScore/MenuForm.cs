@@ -19,7 +19,7 @@ namespace ScrabbleScore
         public MenuForm()
         {
             InitializeComponent();
-            this.Text = "Scrabble Score Master";
+            this.Text = "Scrabble Score";
             this.Size = new Size(400, 600);
             this.BackColor = Color.FromArgb(30, 30, 30);
             this.ForeColor = Color.White;
