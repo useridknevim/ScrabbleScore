@@ -32,7 +32,7 @@ namespace ScrabbleScore
             InitializeComponent();
 
             this.hraci = zadaniHraci;
-            this.Text = "Scrabble Score Master";
+            this.Text = "Scrabble Score";
             this.Size = new Size(1150, 750);
             this.BackColor = Color.FromArgb(30, 30, 30);
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -73,7 +73,6 @@ namespace ScrabbleScore
                         Tag = new Point(r, s)
                     };
 
-                    // Propojení akcí
                     tb.TextChanged += ObsluhaZmenyTextu;
                     tb.MouseDown += ObsluhaZolika;
                     tb.MouseEnter += ObsluhaToolTipu;
@@ -192,10 +191,8 @@ namespace ScrabbleScore
                 }
             }
 
-            // Validace prázdného pole
             if (nove.Count == 0) { return; }
 
-            // Validace limitu
             if (nove.Count > 7)
             {
                 MessageBox.Show("V jednom tahu můžete položit max 7 písmen!");
@@ -225,7 +222,6 @@ namespace ScrabbleScore
             // Výpočet bodů
             int bodyTah = VypocitejSkore(nove, out string seznamSlov);
 
-            // UNIVERZÁLNÍ KONTROLA: Žádné slovo nemá jen 1 písmeno
             if (bodyTah == 0)
             {
                 MessageBox.Show("Slovo se nemůže skládat pouze z jednoho písmene!");
@@ -256,7 +252,7 @@ namespace ScrabbleScore
             if (string.IsNullOrEmpty(hlavni) == false) { nalezenaSlova.Add(hlavni); }
 
             // Křížová slova
-            foreach (var p in nove)
+            foreach (Point p in nove)
             {
                 int bodyKriz = SpoctiJednoSlovo(p.X, p.Y, !jeHorizontalni, out string kriz);
                 if (bodyKriz > 0)
@@ -316,7 +312,6 @@ namespace ScrabbleScore
                 if (horiz == true) { currS++; } else { currR++; }
             }
 
-            // Pokud je délka 1, vracíme 0 (není to slovo)
             if (delka < 2) { text = ""; return 0; }
             return sumaBody * nasobitelSlova;
         }
@@ -346,7 +341,7 @@ namespace ScrabbleScore
                 }
 
                 // Reset hráčů a historie
-                foreach (var h in hraci)
+                foreach (Hrac h in hraci)
                 {
                     h.Skore = 0;
                     h.HistorieTahu.Clear();
@@ -366,7 +361,7 @@ namespace ScrabbleScore
             Point p = (Point)tb.Tag;
             poleLogika[p.X, p.Y].Pismeno = tb.Text;
 
-            // Barva rozepsaného
+            
             if (string.IsNullOrEmpty(tb.Text) == false && poleLogika[p.X, p.Y].JeZafixovano == false)
             {
                 tb.BackColor = Color.FromArgb(255, 248, 200);
@@ -426,12 +421,11 @@ namespace ScrabbleScore
         private void AktualizujVse()
         {
             lbHraci.Items.Clear();
-            foreach (var h in hraci)
+            foreach (Hrac h in hraci)
             {
                 lbHraci.Items.Add(h.ToString());
             }
 
-            // Refresh nápisu kdo hraje
             lblNaTahu.Text = "NA TAHU: " + hraci[aktualniHracIndex].Jmeno;
         }
 

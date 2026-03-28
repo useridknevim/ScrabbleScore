@@ -8,7 +8,6 @@ namespace ScrabbleScore
         public bool JeZafixovano { get; set; } = false;
         public string Bonus { get; set; } = "zadny";
 
-        // NOVÉ: Pamatuje si, jestli je písmeno žolík (0 bodů)
         public bool JeZolik { get; set; } = false;
 
         public Color ZiskejBarvu()
